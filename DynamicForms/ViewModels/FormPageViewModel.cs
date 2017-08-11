@@ -112,21 +112,10 @@ namespace DynamicForms.ViewModels
 		}
 
 		private void DoSaveFormCommand()
-		{
-            bool isFormValid = true;
-            BaseControl failedField = null;
+        {
+            BaseControl failedField = ValidateForm();
 
-            foreach (var field in FormFields)
-            {
-                if( !field.IsValid())
-                {
-                    isFormValid = false;
-                    failedField = field;
-                    break;
-                }
-            }
-
-            if(!isFormValid)
+            if (failedField != null)
             {
                 _messageService.Send<string>("FailedFormValidation", failedField.ErrorMessage);
             }
@@ -135,6 +124,22 @@ namespace DynamicForms.ViewModels
                 _filerReaderWriter.SaveForm(FormFields.ToList(), GenerateFilename());
                 _messageService.Send<string>("SavedSuccessfull", this);
             }
+        }
+
+        private BaseControl ValidateForm()
+        {
+			BaseControl failedField = null;
+
+            foreach (var field in FormFields)
+            {
+                if (!field.IsValid())
+                {
+                    failedField = field;
+                    break;
+                }
+            }
+
+            return failedField;
         }
 
         private string GenerateFilename()

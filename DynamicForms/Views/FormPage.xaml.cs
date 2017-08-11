@@ -13,19 +13,19 @@ namespace DynamicForms.Views
     public partial class FormPage : ContentPage
     {
         private FormPageViewModel _viewModel;
+        private MessageService _messageService = new MessageService();
 
         public FormPage(Form selectedForm)
         {
 			InitializeComponent();
 
-            var messageService = new MessageService();
             var fileReaderWriter = new FileReaderWriter();
             var device = new DynamicForms.Models.Device.Device();
 
-            BindingContext = _viewModel = new FormPageViewModel(selectedForm, Navigation, messageService, fileReaderWriter, device);
+            BindingContext = _viewModel = new FormPageViewModel(selectedForm, Navigation, _messageService, fileReaderWriter, device);
             BuildButtons(selectedForm.Commands);
 
-            messageService.Subscribe<string>(this, (source, key) =>
+            _messageService.Subscribe<string>(this, (source, key) =>
              {
                  if (key == "FailedFormValidation")
                  {
@@ -38,6 +38,11 @@ namespace DynamicForms.Views
                  }
              });
 
+        }
+
+        protected override void OnDisappearing()
+        {
+           _messageService.Unsubscribe<string>(this);
         }
 
         private void BuildButtons(List<XmlCommand> commands)

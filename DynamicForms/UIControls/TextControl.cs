@@ -35,7 +35,7 @@ namespace DynamicForms.UIControls
 
 			if (_field.MaxLength != 0)
 			{
-				if (Value.Length > _field.MaxLength)
+                if (!string.IsNullOrEmpty(Value) && Value.Length > _field.MaxLength)
 				{
                     ErrorMessage = $"{_field.Caption} must be less than {_field.MaxLength} characters";
 					return false;
@@ -48,7 +48,7 @@ namespace DynamicForms.UIControls
                 {
                     string[] tokens = Value.Split(new char[] { '.' });
 
-                    if (tokens.Length >= 1)
+                    if (tokens.Length >= 2)
                     {
                         int decimals = tokens[1].Length;
 

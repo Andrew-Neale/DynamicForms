@@ -11,7 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ObservableObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ObservableRangeCollection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\MessagingCenterAlert.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs">
@@ -32,7 +31,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Behaviors\ListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Device\Device.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Device\IDevice.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\IoC.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\FormPage.xaml.cs">
       <DependentUpon>FormPage.xaml</DependentUpon>
     </Compile>
