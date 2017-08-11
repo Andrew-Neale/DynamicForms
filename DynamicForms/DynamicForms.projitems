@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{945190BB-9EFF-4B54-95DD-EFA31C86B141}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>DynamicForms</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ObservableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ObservableRangeCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\MessagingCenterAlert.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Xml\Forms.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Xml\Form.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Xml\Field.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Commands\AsyncCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Commands\AsyncCommand[T].cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Behaviors\ListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Device\Device.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Device\IDevice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\IoC.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\FormPage.xaml.cs">
+      <DependentUpon>FormPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FormPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UIControls\TextControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TemplateSelectors\FormTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Xml\Option.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Xml\XmlCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Messaging\IMessageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Messaging\MessageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UIControls\BaseControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UIControls\RadioControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UIControls\DateTimeControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Io\FileReaderWriter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Io\IFileReaderWriter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\FormsData.xml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FormPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Xml\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Behaviors\" />
+    <Folder Include="$(MSBuildThisFileDirectory)UIControls\" />
+    <Folder Include="$(MSBuildThisFileDirectory)TemplateSelectors\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Messaging\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Io\" />
+  </ItemGroup>
+</Project>

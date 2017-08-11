@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<forms>
+	<form title="Personal Details">
+		<fields>
+			<field type="text" isrequired="false" caption="First Name" order="1" length="100" />
+		</fields>
+	</form>
+</forms>

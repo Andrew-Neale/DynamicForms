@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<forms>
+   <form title="Personal Details">
+      <fields>
+         <field type="text" isrequired="true" caption="First Name" order="1" length="100" />
+         <field type="text" isrequired="true" caption="Last Name" order="2" length="100" />
+         <field type="radio" isrequired="true" caption="Gender" order="3">
+            <option order="1" text="Male" />
+            <option order="2" text="Female" />
+         </field>
+         <field type="date" isrequired="true" caption="DOB" order="4" />
+         <field type="text" isrequired="true" caption="Address 1" order="5" length="100" />
+         <field type="text" isrequired="true" caption="City" order="6" length="100" />
+         <field type="text" isrequired="true" caption="Post Code" order="7" length="10" />
+         <field type="dropdown" isrequired="true" caption="Country" order="8">
+            <option order="1" text="United Kingdom" />
+            <option order="2" text="Australia" />
+            <option order="2" text="India" />
+            <option order="2" text="Italy" />
+         </field>
+         <field type="numeric" isrequired="false" caption="Basic Salary" order="9" />
+         <field type="numeric" isrequired="false" caption="Bonus" order="10" />
+         <field type="decimal" isrequired="false" caption="Gross Salary" order="11" decimalplaces="2" />
+         <field type="comment" isrequired="true" caption="Additional Comments" order="12" length="500" />
+         <field type="document" isrequired="false" caption="Document(s)" order="13" />
+      </fields>
+      <commands>
+         <command type="Save" caption="Save" order="1" />
+         <command type="Close" caption="Close" order="2" />
+      </commands>
+   </form>
+</forms>
