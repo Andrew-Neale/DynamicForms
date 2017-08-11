@@ -67,6 +67,7 @@
     <Compile Include="Models\FormTests.cs" />
     <Compile Include="ViewModels\HomeViewModelTests.cs" />
     <Compile Include="ViewModels\FormPageViewModelTests.cs" />
+    <Compile Include="UIControls\TextControlTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -85,6 +86,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="XmlFiles\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="UIControls\" />
   </ItemGroup>
   <Import Project="..\DynamicForms\DynamicForms.projitems" Label="Shared" Condition="Exists('..\DynamicForms\DynamicForms.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

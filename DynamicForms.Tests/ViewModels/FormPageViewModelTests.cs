@@ -113,7 +113,7 @@ namespace DynamicForms.Tests.ViewModels
             public void SetupEmptyForm()
             {
 				FileReaderWriterMock.Setup(x => x.LoadForm(It.IsAny<string>()))
-				 .Returns(new List<UIControls.BaseControl>()).Verifiable();
+				 .Returns(new List<DynamicForms.UIControls.BaseControl>()).Verifiable();
                 
                 FormPageViewModel = new FormPageViewModel(GenerateForm(),
                                                           NavigationMock.Object,
