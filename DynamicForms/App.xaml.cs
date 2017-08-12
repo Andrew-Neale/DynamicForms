@@ -6,11 +6,6 @@ namespace DynamicForms
 {
     public partial class App : Application
     {
-        public static bool UseMockDataStore = true;
-        public static string BackendUrl = "https://localhost:5000";
-
-        public static IDictionary<string, string> LoginParameters => null;
-
         public App ()
         {
             InitializeComponent ();

@@ -11,7 +11,6 @@ namespace DynamicForms.Models.Xml
 
         public XmlCommand(XElement commandElement)
         {
-            // todo: create base class
 			Type = commandElement.Attribute("type").Value;
 			Caption = commandElement.Attribute("caption")?.Value;
 			Order = Convert.ToInt32(commandElement.Attribute("order")?.Value);

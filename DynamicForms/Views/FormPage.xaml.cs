@@ -36,7 +36,6 @@ namespace DynamicForms.Views
                      DisplayAlert("Saved", "Form saved successfully", "OK");
                  }
              });
-
         }
 
         protected override async void OnAppearing()

@@ -23,7 +23,8 @@ namespace DynamicForms.UIControls
 
         public override bool IsValid()
         {
-            if (_field.IsRequired && SelectedIndex < 0 )
+			// Validate Required field constraint
+			if (_field.IsRequired && SelectedIndex < 0 )
             {
                 ErrorMessage = $"{_field.Caption} is required";
                 return false;

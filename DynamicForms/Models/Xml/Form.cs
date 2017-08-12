@@ -13,22 +13,30 @@ namespace DynamicForms.Models.Xml
         public Form(XElement formElement)
         {
             if (formElement == null)
-            { 
+            {
                 return;
             }
 
             Title = formElement.Attribute("title").Value;
 
+            AddFields(formElement);
+            AddCommands(formElement);
+        }
+
+        private void AddCommands(XElement formElement)
+        {
+            foreach (var fieldElement in formElement.Elements("commands").Elements("command"))
+            {
+                Commands.Add(new XmlCommand(fieldElement));
+            }
+        }
+
+        private void AddFields(XElement formElement)
+        {
             foreach (var fieldElement in formElement.Elements("fields").Elements("field"))
             {
                 Fields.Add(new Field(fieldElement));
             }
-
-			foreach (var fieldElement in formElement.Elements("commands").Elements("command"))
-			{
-				Commands.Add(new XmlCommand(fieldElement));
-			}
         }
-
     }
 }

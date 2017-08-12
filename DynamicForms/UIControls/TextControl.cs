@@ -24,6 +24,7 @@ namespace DynamicForms.UIControls
 
 		public override bool IsValid()
 		{
+			// Validate Required field constraint
 			if (_field.IsRequired)
 			{
 				if (string.IsNullOrEmpty(Value))
@@ -33,6 +34,7 @@ namespace DynamicForms.UIControls
 				}
 			}
 
+            // Validate max length constraint
 			if (_field.MaxLength != 0)
 			{
                 if (!string.IsNullOrEmpty(Value) && Value.Length > _field.MaxLength)
@@ -42,6 +44,7 @@ namespace DynamicForms.UIControls
 				}
 			}
 
+            // Validate max decimal places constraint
             if (_field.MaxDecimalPlaces > 0)
             {
                 if (!string.IsNullOrEmpty(Value))

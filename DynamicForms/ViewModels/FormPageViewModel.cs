@@ -28,7 +28,12 @@ namespace DynamicForms.ViewModels
         public ICommand ClosePageCommand => _closePageCommand ?? (_closePageCommand = new Command( ()=> DoClosePageCommand()));
 		public ICommand SaveFormCommand => _saveFormCommand ?? (_saveFormCommand = new Command(() => DoSaveFormCommand()));
 
-        public FormPageViewModel(Form selectedForm, INavigation navigation, IMessageService messageService, IFileReaderWriter fileReaderWriter, IDevice device)
+        public FormPageViewModel(
+            Form selectedForm,
+            INavigation navigation, 
+            IMessageService messageService,
+            IFileReaderWriter fileReaderWriter, 
+            IDevice device)
         {
             _form = selectedForm;
             _navigation = navigation;
@@ -37,8 +42,6 @@ namespace DynamicForms.ViewModels
             _device = device;
 
             Title = selectedForm.Title;
-
-
         }
 
         public async Task Initialise()
@@ -54,6 +57,7 @@ namespace DynamicForms.ViewModels
 			{
 				CreateEmptyForm();
 			}
+
             IsBusy = false;
         }
 

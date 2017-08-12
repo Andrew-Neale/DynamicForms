@@ -17,13 +17,8 @@ namespace DynamicForms.Views
             InitializeComponent();
             string resourcePrefix = string.Empty;
 
-#if __IOS__
-            resourcePrefix = "DynamicForms.iOS.";
-#endif
-#if __ANDROID__
-		    resourcePrefix = "DynamicForms.Droid.";
-#endif
-			resourcePrefix += "Assets.FormsData.xml";
+            resourcePrefix = GetResourcePrefix(); 
+            resourcePrefix += "Assets.FormsData.xml";
 
             ViewModel = new HomeViewModel(Navigation, new FileReaderWriter(), new DynamicForms.Models.Device.Device(), resourcePrefix);
             BindingContext = ViewModel;
@@ -41,5 +36,19 @@ namespace DynamicForms.Views
                 await ViewModel.Initialise();
             }
         }
-    }
+
+		private static string GetResourcePrefix()
+		{
+            var resourcePrefix = string.Empty;
+
+#if __IOS__
+			resourcePrefix = "DynamicForms.iOS.";
+#endif
+#if __ANDROID__
+			resourcePrefix =  "DynamicForms.Droid.";
+#endif
+
+            return resourcePrefix;
+		}
+	}
 }
