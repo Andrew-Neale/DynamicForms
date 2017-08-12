@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using DynamicForms.Models.Device;
 using DynamicForms.Models.Io;
@@ -37,16 +38,23 @@ namespace DynamicForms.ViewModels
 
             Title = selectedForm.Title;
 
-            var savedForm = _filerReaderWriter.LoadForm(GenerateFilename());
 
-            if (savedForm.Count > 0)
-            {
-                PopulateForm(savedForm);
-            }
-            else
-            {
-                CreateEmptyForm();
-            }
+        }
+
+        public async Task Initialise()
+        {
+            IsBusy = true;
+			var savedForm = await _filerReaderWriter.LoadForm(GenerateFilename());
+
+			if (savedForm.Count > 0)
+			{
+				PopulateForm(savedForm);
+			}
+			else
+			{
+				CreateEmptyForm();
+			}
+            IsBusy = false;
         }
 
         private void CreateEmptyForm()

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Xml.Linq;
-using DynamicForms.Models.Commands;
-using DF = DynamicForms.Models.Xml;
-using Xamarin.Forms;
-using DynamicForms.Views;
-using DynamicForms.Models.Io;
 using DynamicForms.Models.Device;
+using DynamicForms.Models.Io;
+using DynamicForms.Views;
+using Xamarin.Forms;
+using DF = DynamicForms.Models.Xml;
 
 namespace DynamicForms.ViewModels
 {
@@ -19,6 +13,7 @@ namespace DynamicForms.ViewModels
 		private readonly INavigation _navigation;
 		private readonly IFileReaderWriter _fileReaderWriter;
         private readonly IDevice _device;
+        private readonly string _resourcePrefix;
 
 		private ICommand _selectPageCommand;
 
@@ -30,14 +25,16 @@ namespace DynamicForms.ViewModels
             _navigation = navigation;
             _fileReaderWriter = fileReaderWriter;
             _device = device;
+            _resourcePrefix = resourcePrefix;
 
             Title = "Home Page";
-            LoadResourceFile(resourcePrefix);
         }
 
-        public void LoadResourceFile(string resourcePrefix)
+        public async Task Initialise()
         {
-            FormPages.AddRange(_fileReaderWriter.LoadResource<HomeViewModel>(resourcePrefix));
+            IsBusy = true;
+            FormPages.AddRange(await _fileReaderWriter.LoadResource<HomeViewModel>(_resourcePrefix));
+            IsBusy = false;
         }
 
         private void DoSelectPageCommand(DF.Form selectedForm)

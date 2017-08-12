@@ -12,9 +12,9 @@
             </DataTemplate>
             <DataTemplate x:Key="RadioTemplate">
                 <ViewCell>
-                        <Grid Padding="10">
-                         <Picker ItemsSource="{Binding Field.Options}" ItemDisplayBinding="{Binding Text}" SelectedIndex="{Binding SelectedIndex}" Title="{Binding Field.Caption}" />
-                        </Grid>
+                    <Grid Padding="10">
+                        <Picker ItemsSource="{Binding Field.Options}" ItemDisplayBinding="{Binding Text}" SelectedIndex="{Binding SelectedIndex}" Title="{Binding Field.Caption}" />
+                    </Grid>
                 </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="DatePickerTemplate">
@@ -25,15 +25,15 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-             <DataTemplate x:Key="NumberTemplate">
+            <DataTemplate x:Key="NumberTemplate">
                 <ViewCell>
                     <StackLayout Padding="10">
                         <Label Text="{Binding Field.Caption}" />
-                        <Entry Keyboard="Numeric" Text="{Binding Value}"  />
+                        <Entry Keyboard="Numeric" Text="{Binding Value}" />
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-             <DataTemplate x:Key="DocumentTemplate">
+            <DataTemplate x:Key="DocumentTemplate">
                 <ViewCell>
                     <StackLayout Padding="10">
                         <Label Text="{Binding Field.Caption}" />
@@ -41,32 +41,41 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-             <DataTemplate x:Key="CloseCommandTemplate">
-                        <Button Text="{Binding Caption, Path=BindingContext.Forms.Commands, Source={x:Reference Name=FormPage}" Command="{Binding  Path=BindingContext.ClosePageCommand, Source={x:Reference Name=FormPage}}" />
+            <DataTemplate x:Key="CloseCommandTemplate">
+                <Button Text="{Binding Caption, Path=BindingContext.Forms.Commands, Source={x:Reference Name=FormPage}" Command="{Binding  Path=BindingContext.ClosePageCommand, Source={x:Reference Name=FormPage}}" />
             </DataTemplate>
-             <DataTemplate x:Key="SaveCommandTemplate">
-                        <Button Text="{Binding Caption}" Command="{Binding  Path=BindingContext.SaveFormCommand, Source={x:Reference Name=FormPage}}" />
+            <DataTemplate x:Key="SaveCommandTemplate">
+                <Button Text="{Binding Caption}" Command="{Binding  Path=BindingContext.SaveFormCommand, Source={x:Reference Name=FormPage}}" />
             </DataTemplate>
-            
-            <local:FormTemplateSelector 
-            x:Key="FormTemplateSelector"
-            TextFieldTemplate="{StaticResource TextFieldTemplate}"
-            RadioTemplate="{StaticResource RadioTemplate}" 
-            DatePickerTemplate="{StaticResource DatePickerTemplate}"
-            NumberTemplate="{StaticResource NumberTemplate}"
-            DocumentTemplate="{StaticResource DocumentTemplate}" />
+            <local:FormTemplateSelector x:Key="FormTemplateSelector"
+                TextFieldTemplate="{StaticResource TextFieldTemplate}" 
+                RadioTemplate="{StaticResource RadioTemplate}"
+                DatePickerTemplate="{StaticResource DatePickerTemplate}"
+                NumberTemplate="{StaticResource NumberTemplate}" 
+                DocumentTemplate="{StaticResource DocumentTemplate}" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    
     <ContentPage.Content>
         <Grid>
-             <Grid.RowDefinitions>
-        <RowDefinition Height="*" />
-        <RowDefinition Height="70" />
-    </Grid.RowDefinitions>
-        <ListView Grid.Row="0" x:Name="FormContainer" SeparatorVisibility="None" ItemsSource="{Binding FormFields}" VerticalOptions="FillAndExpand" HasUnevenRows="true" ItemTemplate="{StaticResource FormTemplateSelector}">
-        </ListView>
-       <StackLayout x:Name="CommandsContainer" HorizontalOptions="CenterAndExpand" Orientation="Horizontal" Grid.Row="1"   />
-           </Grid> 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="70" />
+            </Grid.RowDefinitions>
+
+            <!-- Form container -->
+            <ListView Grid.Row="0" x:Name="FormContainer" SeparatorVisibility="None" ItemsSource="{Binding FormFields}" VerticalOptions="FillAndExpand" HasUnevenRows="true" ItemTemplate="{StaticResource FormTemplateSelector}">
+            </ListView>
+
+            <!-- load and save buttons -->
+            <StackLayout x:Name="CommandsContainer" HorizontalOptions="CenterAndExpand" Orientation="Horizontal" Grid.Row="1" />
+
+            <!-- loading spinner -->
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+             <ActivityIndicator
+                    IsRunning="{Binding IsBusy}" 
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.33}" 
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.33}" />
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

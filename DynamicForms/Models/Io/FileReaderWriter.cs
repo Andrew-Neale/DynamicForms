@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using DynamicForms.Models.Xml;
 using DynamicForms.UIControls;
@@ -24,38 +25,46 @@ namespace DynamicForms.Models.Io
             System.IO.File.WriteAllText(filePath, json);
         }
 
-        public List<BaseControl> LoadForm(string filename)
+        public async Task<List<BaseControl>> LoadForm(string filename)
         {
-            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var filePath = Path.Combine(documentsPath, filename);
+            var savedForm = new List<BaseControl>();
 
-            if (File.Exists(filePath))
+            await Task.Run(() =>
             {
-                var formData = System.IO.File.ReadAllText(filePath);
-                JsonSerializerSettings settings = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All
-                };
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<List<BaseControl>>(formData, settings);
-            }
+                var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                var filePath = Path.Combine(documentsPath, filename);
 
-            return new List<BaseControl>();
+                if (File.Exists(filePath))
+                {
+                    var formData = System.IO.File.ReadAllText(filePath);
+                    JsonSerializerSettings settings = new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    };
+                    savedForm = Newtonsoft.Json.JsonConvert.DeserializeObject<List<BaseControl>>(formData, settings);
+                }
+            });
+                    
+            return savedForm;
 
         }
 
-        public List<Form> LoadResource<T>(string resourcePrefix)
+        public async Task<List<Form>> LoadResource<T>(string resourcePrefix)
         {
             List<Form> formPages = new List<Form>();
 
-			var assembly = typeof(T).GetTypeInfo().Assembly;
-			var stream = assembly.GetManifestResourceStream(resourcePrefix);
+            await Task.Run(() =>
+             {
+                 var assembly = typeof(T).GetTypeInfo().Assembly;
+                 var stream = assembly.GetManifestResourceStream(resourcePrefix);
 
-			using (var reader = new System.IO.StreamReader(stream))
-			{
-				var document = XDocument.Load(reader);
-				var forms = new Forms(document);
-				formPages.AddRange(forms.FormViews);
-			}
+                 using (var reader = new System.IO.StreamReader(stream))
+                 {
+                     var document = XDocument.Load(reader);
+                     var forms = new Forms(document);
+                     formPages.AddRange(forms.FormViews);
+                 }
+             });
 
             return formPages;
         }

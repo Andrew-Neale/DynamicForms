@@ -43,7 +43,7 @@ namespace DynamicForms.Tests.ViewModels
             {
 				var resourcePrefix = "Assets.FormsData.xml";
 				FileReaderWriterMock.Setup(x => x.LoadResource<HomeViewModel>(It.IsAny<string>()))
-									.Returns(new List<DynamicForms.Models.Xml.Form>()
+									.ReturnsAsync(new List<DynamicForms.Models.Xml.Form>()
 				{
 				    new Form(null)
 				});

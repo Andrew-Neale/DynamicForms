@@ -5,16 +5,28 @@
     x:Class="DynamicForms.Views.HomePage" Title="{Binding Title}"
     xmlns:behavior="clr-namespace:DynamicForms.Models.Behaviors" >
 	<ContentPage.Content>
-        <ListView x:Name="FormsListView" ItemsSource="{Binding FormPages}" VerticalOptions="FillAndExpand" HasUnevenRows="true" behavior:ListView.Command="{Binding SelectPageCommand}">
-        <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Padding="10">
-                                <Label Text="{Binding Title}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-        </ListView>
+        <Grid>
+            <ListView x:Name="FormsListView" ItemsSource="{Binding FormPages}" VerticalOptions="FillAndExpand" HasUnevenRows="true" behavior:ListView.Command="{Binding SelectPageCommand}">
+                <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="10">
+                                    <Label Text="{Binding Title}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- loading spinner -->
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator
+                    IsRunning="{Binding IsBusy}" 
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.33}" 
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.33}" />
+            </StackLayout>
+        </Grid>
+        
+     
 	</ContentPage.Content>
 </ContentPage>

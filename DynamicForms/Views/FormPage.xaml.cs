@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DynamicForms.Models.Io;
 using DynamicForms.Models.Messaging;
 using DynamicForms.Models.Xml;
-using DynamicForms.TemplateSelectors;
-using DynamicForms.UIControls;
 using DynamicForms.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace DynamicForms.Views
 {
@@ -14,6 +12,7 @@ namespace DynamicForms.Views
     {
         private FormPageViewModel _viewModel;
         private MessageService _messageService = new MessageService();
+        private bool _isLoaded;
 
         public FormPage(Form selectedForm)
         {
@@ -38,6 +37,16 @@ namespace DynamicForms.Views
                  }
              });
 
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            if(!_isLoaded)
+            {
+                _isLoaded = true;
+                await _viewModel.Initialise();
+            }
         }
 
         protected override void OnDisappearing()

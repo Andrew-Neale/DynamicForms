@@ -18,28 +18,30 @@ namespace DynamicForms.Tests.ViewModels
     public class FormPageViewModelTests
     {
         [Test]
-        public void CanCreateEmptyForml()
+        public async Task CanCreateEmptyForm()
         {
             // setup
             var mocker = new HomeViewModelMock();
+			mocker.SetupEmptyForm();
 
             // Act
-            mocker.SetupEmptyForm();
-           
-            // Verify
-            Assert.AreEqual("Personal Details", mocker.FormPageViewModel.Title);
+            await mocker.FormPageViewModel.Initialise();
+
+			// Verify
+			Assert.AreEqual("Personal Details", mocker.FormPageViewModel.Title);
             Assert.AreEqual(13, mocker.FormPageViewModel.FormFields.Count);
             mocker.FileReaderWriterMock.VerifyAll();
         }
 
         [Test]
-        public void CanDisplaySavedForm()
+        public async Task CanDisplaySavedForm()
         {
 			// setup
 			var mocker = new HomeViewModelMock();
+			mocker.SetupSavedForm();
 
             // Act
-            mocker.SetupSavedForm();
+            await mocker.FormPageViewModel.Initialise();
 
 			// Verify
 			Assert.AreEqual("Personal Details", mocker.FormPageViewModel.Title);
@@ -67,13 +69,14 @@ namespace DynamicForms.Tests.ViewModels
         }
 
         [Test]
-        public void WillNotSaveFormIsNotValid()
+        public async Task WillNotSaveFormWhenNotValid()
         {
 			// setup
 			var mocker = new HomeViewModelMock();
 
 			mocker.SetupSavedForm();
             mocker.MessageServiceMock.Setup(x => x.Send<string>(It.Is<string>(key => key == "FailedFormValidation"), It.IsAny<object>())).Verifiable();
+            await mocker.FormPageViewModel.Initialise();
 
 			// Act
 			mocker.FormPageViewModel.SaveFormCommand.Execute(null);
@@ -84,7 +87,7 @@ namespace DynamicForms.Tests.ViewModels
         }
 
         [Test]
-        public void WillSaveValidForm()
+        public async Task WillSaveValidForm()
         {
 			// setup
 			var mocker = new HomeViewModelMock();
@@ -92,6 +95,7 @@ namespace DynamicForms.Tests.ViewModels
 			mocker.SetupEasyToValidateForm();
             mocker.FileReaderWriterMock.Setup(x => x.SaveForm(It.IsAny<List<BaseControl>>(), It.IsAny<string>())).Verifiable();
 			mocker.MessageServiceMock.Setup(x => x.Send<string>(It.Is<string>(key => key == "SavedSuccessfull"), It.IsAny<object>())).Verifiable();
+            await mocker.FormPageViewModel.Initialise();
 
 			// Act
 			mocker.FormPageViewModel.SaveFormCommand.Execute(null);
@@ -113,7 +117,7 @@ namespace DynamicForms.Tests.ViewModels
             public void SetupEmptyForm()
             {
 				FileReaderWriterMock.Setup(x => x.LoadForm(It.IsAny<string>()))
-				 .Returns(new List<DynamicForms.UIControls.BaseControl>()).Verifiable();
+				 .ReturnsAsync(new List<DynamicForms.UIControls.BaseControl>()).Verifiable();
                 
                 FormPageViewModel = new FormPageViewModel(GenerateForm(),
                                                           NavigationMock.Object,
@@ -125,7 +129,7 @@ namespace DynamicForms.Tests.ViewModels
             public void SetupSavedForm()
             {
 				FileReaderWriterMock.Setup(x => x.LoadForm(It.IsAny<string>()))
-				 .Returns(GenerateField(13)).Verifiable();
+				 .ReturnsAsync(GenerateField(13)).Verifiable();
 
 				FormPageViewModel = new FormPageViewModel(GenerateForm(),
 														  NavigationMock.Object,
@@ -140,7 +144,7 @@ namespace DynamicForms.Tests.ViewModels
                 var formDoc = new Form( XDocumentFactory.XmlEasyValidationForm().Element("forms").Element("form"));
 
 				FileReaderWriterMock.Setup(x => x.LoadForm(It.IsAny<string>()))
-				 .Returns(GenerateField(1)).Verifiable();
+				 .ReturnsAsync(GenerateField(1)).Verifiable();
 
 				FormPageViewModel = new FormPageViewModel(formDoc,
 														  NavigationMock.Object,
